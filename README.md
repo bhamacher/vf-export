@@ -6,7 +6,7 @@ For more details about pyhton-converter visit: https://github.com/ZeraGmbH/Pytho
 
 ## Vein Interface
 
-###Componets
+### Components
 
 PAR_InputPath: The db file path
 PAR_OutputPath: the path where we want to generate the xml file
@@ -19,7 +19,7 @@ If the modules where not found follwoing steps are necessary :
 2. adapt PYTHONPATH
 3. restart process
 
-###RPCS
+### RPCS
 
 RPC_Convert: Does the actual conversion. 
 
