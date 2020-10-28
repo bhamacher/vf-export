@@ -26,7 +26,6 @@ find_package(Qt5 REQUIRED COMPONENTS Core CONFIG  )
 find_package(VfHelpers REQUIRED)
 find_package(VfEvent REQUIRED)
 find_package(VfComponent REQUIRED)
-find_package(VfQml REQUIRED)
 find_package(VfStorageHash REQUIRED)
 find_package(VfCpp REQUIRED)
 find_package(PythonLibs 3.8 REQUIRED)
@@ -75,7 +74,6 @@ target_link_libraries(VfExport
     VeinMeta::VfHelpers
     VeinMeta::VfEvent
     VeinMeta::VfComponent
-    VeinMeta::VfQml
     VeinMeta::VfStorageHash
     VeinMeta::VfCpp
     VeinMeta::PythonScriptingInterface
