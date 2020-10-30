@@ -31,7 +31,7 @@ bool vf_export::initOnce()
 
         m_entity->createRpc(this,"RPC_Convert", VfCpp::cVeinModuleRpc::Param({}));
         py =  new zPyInt::PythonBinding();
-        if(py->init("CppInterface") == true){
+        if(py->init("pythonconverter_pkg.CppInterface") == true){
             m_status=true;
         }
 
