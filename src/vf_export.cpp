@@ -62,8 +62,10 @@ QVariant vf_export::RPC_Convert(QVariantMap p_params)
         py->callFunction("setSession",{PyUnicode_FromString(m_session.value().toUtf8())});
         zPyInt::PySharedRef good =py->callFunction("checkInputFile",{});
         if(PyObject_IsTrue(good.data())){
-            py->callFunction("convert",{});
-            retVal=true;
+            zPyInt::PySharedRef ret=py->callFunction("convert",{});
+            if(PyObject_IsTrue(ret.data())){
+                retVal=true;
+            }
         }
 
     }
