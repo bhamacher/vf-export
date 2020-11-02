@@ -4,6 +4,7 @@
 #include <QObject>
 #include <veinmoduleentity.h>
 #include <veincompproxy.h>
+#include <veinmodulecomponent.h>
 
 
 namespace zPyInt {
@@ -16,7 +17,7 @@ namespace vfExport {
  * @brief The vf_export class
  *
  * is an vein module useable with zera-modulemanager.
- * This module binds the PythonConverter Moduel and
+ * This module binds the PythonConverter Module and
  * offers its Features to vein.
  *
  * Setup:
@@ -70,11 +71,13 @@ private:
      * Path to sqlite db
      */
     VfCpp::VeinCompProxy<QString> m_inputPath;
+    VfCpp::cVeinModuleComponent::Ptr m_inputPath2;
     /**
      * @brief m_oPath vein component
      * Path to xml File
      */
     VfCpp::VeinCompProxy<QString> m_outputPath;
+    VfCpp::cVeinModuleComponent::Ptr  m_outputPath2;
     /**
      * @brief m_session vein component
      * session to be converted

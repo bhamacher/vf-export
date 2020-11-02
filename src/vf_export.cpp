@@ -23,11 +23,16 @@ bool vf_export::initOnce()
         m_isInitalized=true;
         m_entity->initModule();
         m_entity->createComponent("EntityName","ExportModule",true);
+//        m_entity->createComponent("PAR_InputPath",QString());
+//        m_entity->createComponent("PAR_OutputPath",QString());
+//        m_entity->createComponent("PAR_Session",QString());
+//        m_entity->createComponent("PAR_Engine",QString());
+//        m_entity->createComponent("Status",QVariant(false),true);
         m_inputPath=m_entity->createComponent("PAR_InputPath",QString());
         m_outputPath=m_entity->createComponent("PAR_OutputPath",QString());
-        m_session=m_entity->createComponent("PAR_Session",QString());
-        m_engine=m_entity->createComponent("PAR_Engine",QString());
-        m_status=m_entity->createComponent("Status",false,true);
+//        m_session=m_entity->createComponent("PAR_Session",QString());
+//        m_engine=m_entity->createComponent("PAR_Engine",QString());
+//        m_status=m_entity->createComponent("Status",false,true);
 
         m_entity->createRpc(this,"RPC_Convert", VfCpp::cVeinModuleRpc::Param({}));
         py =  new zPyInt::PythonBinding();
@@ -52,7 +57,7 @@ void vf_export::setVeinEntity(VfCpp::veinmoduleentity *value)
 QVariant vf_export::RPC_Convert(QVariantMap p_params)
 {
     bool retVal = false;
-    if(*m_status == false){
+    if(m_status == false){
         retVal=false;
     }
     else if(m_inputPath != "" && m_outputPath != "" && m_session != ""){
