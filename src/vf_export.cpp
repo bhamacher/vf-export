@@ -52,7 +52,7 @@ void vf_export::setVeinEntity(VfCpp::veinmoduleentity *value)
 QVariant vf_export::RPC_Convert(QVariantMap p_params)
 {
     bool retVal = false;
-    if(*m_status == false){
+    if(m_status == false){
         retVal=false;
     }
     else if(m_inputPath != "" && m_outputPath != "" && m_session != ""){
