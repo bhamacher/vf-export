@@ -23,12 +23,7 @@ bool vf_export::initOnce()
         m_isInitalized=true;
         m_entity->initModule();
         m_entity->createComponent("EntityName","ExportModule",true);
-        m_inputPath=m_entity->createComponent("PAR_InputPath",QString(),true);
-        m_outputPath=m_entity->createComponent("PAR_OutputPath",QString(),true);
-        m_session=m_entity->createComponent("PAR_Session",QString(),true);
-        m_engine=m_entity->createComponent("PAR_Engine",QString(),true);
         m_status=m_entity->createComponent("Status",false,true);
-
         m_entity->createRpc(this,"RPC_Convert", VfCpp::cVeinModuleRpc::Param({{"p_session", "QString"},{"p_inputPath", "QString"},{"p_outputPath", "QString"},{"p_engine", "QString"}}));
         py =  new zPyInt::PythonBinding();
         if(py->init("pythonconverter_pkg.CppInterface") == true){
@@ -62,10 +57,10 @@ QVariant vf_export::RPC_Convert(QVariantMap p_params)
         retVal=false;
     }
     else if(m_inputPath != "" && m_outputPath != "" && m_session != ""){
-        py->callFunction("setInputPath",{PyUnicode_InternFromString(m_inputPath.value().toUtf8())});
-        py->callFunction("setOutputPath",{PyUnicode_FromString(m_outputPath.value().toUtf8())});
-        py->callFunction("setEngine",{PyUnicode_FromString(m_engine.value().toUtf8())});
-        py->callFunction("setSession",{PyUnicode_FromString(m_session.value().toUtf8())});
+        py->callFunction("setInputPath",{PyUnicode_InternFromString(m_inputPath.toUtf8())});
+        py->callFunction("setOutputPath",{PyUnicode_FromString(m_outputPath.toUtf8())});
+        py->callFunction("setEngine",{PyUnicode_FromString(m_engine.toUtf8())});
+        py->callFunction("setSession",{PyUnicode_FromString(m_session.toUtf8())});
         zPyInt::PySharedRef good =py->callFunction("checkInputFile",{});
         if(PyObject_IsTrue(good.data())){
             zPyInt::PySharedRef ret=py->callFunction("convert",{});

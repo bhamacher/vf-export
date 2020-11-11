@@ -69,22 +69,22 @@ private:
      * @brief m_iPath vein component
      * Path to sqlite db
      */
-    VfCpp::VeinCompProxy<QString> m_inputPath;
+    QString m_inputPath;
     /**
      * @brief m_oPath vein component
      * Path to xml File
      */
-    VfCpp::VeinCompProxy<QString> m_outputPath;
+    QString m_outputPath;
     /**
      * @brief m_session vein component
      * session to be converted
      */
-    VfCpp::VeinCompProxy<QString> m_session;
+    QString m_session;
     /**
      * @brief m_engine vein component
      * Conversion engine path
      */
-    VfCpp::VeinCompProxy<QString> m_engine;
+    QString m_engine;
 
     /**
      * @brief m_status
