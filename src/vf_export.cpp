@@ -23,13 +23,13 @@ bool vf_export::initOnce()
         m_isInitalized=true;
         m_entity->initModule();
         m_entity->createComponent("EntityName","ExportModule",true);
-        m_inputPath=m_entity->createComponent("PAR_InputPath",QString());
-        m_outputPath=m_entity->createComponent("PAR_OutputPath",QString());
-        m_session=m_entity->createComponent("PAR_Session",QString());
-        m_engine=m_entity->createComponent("PAR_Engine",QString());
+        m_inputPath=m_entity->createComponent("PAR_InputPath",QString(),true);
+        m_outputPath=m_entity->createComponent("PAR_OutputPath",QString(),true);
+        m_session=m_entity->createComponent("PAR_Session",QString(),true);
+        m_engine=m_entity->createComponent("PAR_Engine",QString(),true);
         m_status=m_entity->createComponent("Status",false,true);
 
-        m_entity->createRpc(this,"RPC_Convert", VfCpp::cVeinModuleRpc::Param({}));
+        m_entity->createRpc(this,"RPC_Convert", VfCpp::cVeinModuleRpc::Param({{"p_session", "QString"},{"p_inputPath", "QString"},{"p_outputPath", "QString"},{"p_engine", "QString"}}));
         py =  new zPyInt::PythonBinding();
         if(py->init("pythonconverter_pkg.CppInterface") == true){
             m_status=true;
@@ -52,6 +52,12 @@ void vf_export::setVeinEntity(VfCpp::veinmoduleentity *value)
 QVariant vf_export::RPC_Convert(QVariantMap p_params)
 {
     bool retVal = false;
+
+    m_inputPath=p_params["p_inputPath"].toString();
+    m_outputPath=p_params["p_outputPath"].toString();
+    m_engine=p_params["p_engine"].toString();
+    m_session=p_params["p_session"].toString();
+
     if(m_status == false){
         retVal=false;
     }
