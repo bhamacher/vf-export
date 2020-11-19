@@ -29,7 +29,6 @@ bool vf_export::initOnce()
         if(py->init("pythonconverter_pkg.CppInterface") == true){
             m_status=true;
         }
-
     }
     return true;
 }
@@ -46,6 +45,7 @@ void vf_export::setVeinEntity(VfCpp::veinmoduleentity *value)
 
 QVariant vf_export::RPC_Convert(QVariantMap p_params)
 {
+    zPyInt::PythonGuard guard;
     bool retVal = false;
 
     m_inputPath=p_params["p_inputPath"].toString();
