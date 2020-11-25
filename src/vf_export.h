@@ -85,6 +85,19 @@ private:
      * Conversion engine path
      */
     QString m_engine;
+    /**
+     * @brief m_parameters
+     * stores the engine parameters available using setParameters
+     * inside the engine.
+     *
+     * The parameters are stores in a json object. Its a generic solution
+     * to adapt the parameters to the used engine.
+     *
+     * Please make sure to use ' instead of " in the json param object.
+     *
+     * {..."p_param" : "{'par1': 'val1', 'par2' : 'val2'}"
+     */
+    QString m_parameters;
 
     /**
      * @brief m_status
