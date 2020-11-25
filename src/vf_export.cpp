@@ -24,7 +24,7 @@ bool vf_export::initOnce()
         m_entity->initModule();
         m_entity->createComponent("EntityName","ExportModule",true);
         m_status=m_entity->createComponent("Status",false,true);
-        m_entity->createRpc(this,"RPC_Convert", VfCpp::cVeinModuleRpc::Param({{"p_session", "QString"},{"p_inputPath", "QString"},{"p_outputPath", "QString"},{"p_engine", "QString"}}));
+        m_entity->createRpc(this,"RPC_Convert", VfCpp::cVeinModuleRpc::Param({{"p_session", "QString"},{"p_inputPath", "QString"},{"p_outputPath", "QString"},{"p_engine", "QString"},{"p_parameters", "QString"}}));
         py =  new zPyInt::PythonBinding();
         if(py->init("pythonconverter_pkg.CppInterface") == true){
             m_status=true;
@@ -52,6 +52,7 @@ QVariant vf_export::RPC_Convert(QVariantMap p_params)
     m_outputPath=p_params["p_outputPath"].toString();
     m_engine=p_params["p_engine"].toString();
     m_session=p_params["p_session"].toString();
+    m_parameters=p_params["p_parameters"].toString();
 
     if(m_status == false){
         retVal=false;
@@ -61,6 +62,7 @@ QVariant vf_export::RPC_Convert(QVariantMap p_params)
         py->callFunction("setOutputPath",{PyUnicode_FromString(m_outputPath.toUtf8())});
         py->callFunction("setEngine",{PyUnicode_FromString(m_engine.toUtf8())});
         py->callFunction("setSession",{PyUnicode_FromString(m_session.toUtf8())});
+        py->callFunction("setParams",{PyUnicode_FromString(m_parameters.toUtf8())});
         zPyInt::PySharedRef good =py->callFunction("checkInputFile",{});
         if(PyObject_IsTrue(good.data())){
             zPyInt::PySharedRef ret=py->callFunction("convert",{});
