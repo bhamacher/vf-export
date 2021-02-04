@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <veinmoduleentity.h>
-#include <veincompproxy.h>
+#include <veinsharedcomp.h>
 
 
 namespace zPyInt {
@@ -56,11 +56,11 @@ public:
      *
      * Take the return value and add it to the top EventHandler system
      */
-    VfCpp::veinmoduleentity *getVeinEntity() const;
-    void setVeinEntity(VfCpp::veinmoduleentity *value);
+    VfCpp::VeinModuleEntity* getVeinEntity() const;
+    void setVeinEntity(VfCpp::VeinModuleEntity* value);
 
 private:
-    VfCpp::veinmoduleentity *m_entity;
+    VfCpp::VeinModuleEntity::Ptr m_entity;
     bool m_isInitalized;
 
     zPyInt::PythonBinding *py;
@@ -110,7 +110,7 @@ private:
      * true: good
      * false: bad
      */
-    VfCpp::VeinCompProxy<bool> m_status;
+    VfCpp::VeinSharedComp<bool> m_status;
 
 signals:
 

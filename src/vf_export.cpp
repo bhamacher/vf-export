@@ -12,9 +12,10 @@
 using namespace vfExport;
 
 vf_export::vf_export(QObject *parent, int id) : QObject(parent),
-    m_isInitalized(false)
+   m_entity(VfCpp::VeinModuleEntity::Ptr(new VfCpp::VeinModuleEntity(id),&QObject::deleteLater)), m_isInitalized(false)
 {
-    m_entity=new VfCpp::veinmoduleentity(id);
+    //m_entity=new VfCpp::VeinModuleEntity(id);
+    QObject::connect(m_entity.data(),&VfCpp::VeinModuleEntity::sigAttached,this,&vf_export::initOnce);
 }
 
 bool vf_export::initOnce()
@@ -22,8 +23,8 @@ bool vf_export::initOnce()
     if(!m_isInitalized){
         m_isInitalized=true;
         m_entity->initModule();
-        m_entity->createComponent("EntityName","ExportModule",true);
-        m_status=m_entity->createComponent("Status",false,true);
+        m_entity->createComponent("EntityName","ExportModule",VfCpp::cVeinModuleComponent::Direction::out);
+        m_status=m_entity->createComponent("Status",false,VfCpp::cVeinModuleComponent::Direction::out);
         m_entity->createRpc(this,"RPC_Convert", VfCpp::cVeinModuleRpc::Param({{"p_session", "QString"},{"p_inputPath", "QString"},{"p_outputPath", "QString"},{"p_engine", "QString"},{"p_filter" , "QString"},{"p_parameters", "QString"}}));
         py =  new zPyInt::PythonBinding();
         if(py->init("pythonconverter_pkg.CppInterface") == true){
@@ -33,14 +34,14 @@ bool vf_export::initOnce()
     return true;
 }
 
-VfCpp::veinmoduleentity *vf_export::getVeinEntity() const
+VfCpp::VeinModuleEntity* vf_export::getVeinEntity() const
 {
-    return m_entity;
+    return m_entity.data();
 }
 
-void vf_export::setVeinEntity(VfCpp::veinmoduleentity *value)
+void vf_export::setVeinEntity(VfCpp::VeinModuleEntity* value)
 {
-    m_entity = value;
+    m_entity = VfCpp::VeinModuleEntity::Ptr(value);
 }
 
 QVariant vf_export::RPC_Convert(QVariantMap p_params)
