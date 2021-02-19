@@ -86,6 +86,11 @@ private:
      */
     QString m_engine;
     /**
+     * @brief m_filter
+     * filter transactions by this word. Transaction must contain filter expression (no regex)
+     */
+    QString m_filter;
+    /**
      * @brief m_parameters
      * stores the engine parameters available using setParameters
      * inside the engine.
