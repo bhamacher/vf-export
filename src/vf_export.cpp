@@ -22,7 +22,6 @@ bool vf_export::initOnce()
 {
     if(!m_isInitalized){
         m_isInitalized=true;
-        m_entity->initModule();
         m_entity->createComponent("EntityName","ExportModule",VfCpp::cVeinModuleComponent::Direction::out);
         m_status=m_entity->createComponent("Status",false,VfCpp::cVeinModuleComponent::Direction::out);
         m_entity->createRpc(this,"RPC_Convert", VfCpp::cVeinModuleRpc::Param({{"p_session", "QString"},{"p_inputPath", "QString"},{"p_outputPath", "QString"},{"p_engine", "QString"},{"p_filter" , "QString"},{"p_parameters", "QString"}}));
